@@ -1,0 +1,8 @@
+## Mac OS
+.DS_Store
+
+## VSCode
+.vscode/
+
+## Carpetas ignoradas
+ignore/
