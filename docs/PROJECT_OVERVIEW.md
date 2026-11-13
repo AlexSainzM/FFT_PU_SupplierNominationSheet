@@ -1,74 +1,29 @@
-# Project Overview — [Nombre del proyecto]
+# Supplier Nomination Sheet · FFT México
 
-> Plantilla reutilizable. Sustituir los marcadores antes de usarla. Este documento define el contexto general del proyecto; el comportamiento detallado vive en las especificaciones.
+## Propósito
 
-**Estado:** Borrador  
-**Fecha de creación:** [AAAA-MM-DD]  
-**Última actualización:** [AAAA-MM-DD]  
-**Responsable:** [Por definir]
+Compras y el usuario técnico documentan la evaluación de un proveedor para un proyecto y un evento de ASTRAS. Cada envío reúne los datos de la oferta, las respuestas a los criterios comerciales, técnicos y legales, y sus comentarios de justificación.
 
----
+## Arquitectura y alcance
 
-## 1. Propósito
+El desarrollo es 100 % frontend y se publica como sitio estático. La plantilla de FFT México utiliza HTML, CSS, JavaScript y Bootstrap. Se permiten frameworks de frontend como Bootstrap. Formspree proporciona el backend que recibe y almacena los envíos. El alcance no incluye manejo de sesiones ni autenticación. 
 
-[Qué es el proyecto, a quién sirve y qué problema resuelve. Una o dos frases sobre el resultado que debe entregar.]
+| Etapa | Resultado |
+| --- | --- |
+| Spec 001 · Captura | El usuario completa la evaluación en el navegador, la envía a Formspree y llega a la página de agradecimiento tras la recepción. [Especificación del formulario](specs/001-nomination-form-creation.md) |
+| Especificaciones futuras · Consulta | Los visores de envíos (*submissions viewers*) consultarán las evaluaciones mediante la API de solo lectura de Formspree. |
+| Especificaciones futuras · Puntajes | Se definirán las reglas para convertir las respuestas en puntajes por sección y aplicar las ponderaciones del formato. |
 
----
+## Ponderaciones para el cálculo futuro
 
-## 2. Principios
+El formato de FFT México asigna los siguientes pesos a las secciones de evaluación. La información general identifica la evaluación y la oferta. [Formato de referencia, páginas 1 y 2](utilities/Nomination_Sheet_FFT.pdf)
 
-- [Restricción o decisión de arquitectura que debe respetarse en todo el proyecto.]
-- [Cómo se despliega y qué dependencias externas están permitidas.]
-- [Qué debe permanecer simple, desacoplado o compatible.]
+| Sección | Criterios | Peso en el puntaje total |
+| --- | ---: | ---: |
+| Validación Comercial | 16 | 40 % |
+| Validación Técnica | 9 | 35 % |
+| Validación Legal y Cumplimiento | 7 | 25 % |
+| **Total** | **32** | **100 %** |
 
----
+El PDF fija los pesos por sección. La especificación de puntajes deberá definir cómo valorar cada respuesta dentro de su sección, incluido el sentido de criterios como «Requiere anticipo». La primera captura conserva la respuesta original y su justificación con identificadores estables para que los cálculos posteriores puedan utilizar los envíos existentes.
 
-## 3. Responsabilidades
-
-El proyecto cubre:
-
-- [Capacidad o módulo principal.]
-- [Capacidad o módulo principal.]
-
-Puede crecer con [tipo de ampliación prevista], siempre que conserve su papel de [rol central del sistema].
-
----
-
-## 4. Arquitectura
-
-[Enfoque general: frontend, full stack, estático, etc.]
-
-### [Capa o componente]
-
-- [Tecnología o responsabilidad.]
-- [Tecnología o responsabilidad.]
-
-### [Integraciones o servicios externos]
-
-[Qué sistemas externos existen, qué hace este proyecto con ellos y qué queda fuera de su implementación.]
-
----
-
-## 5. Límites de alcance
-
-Salvo que una especificación lo indique de forma explícita, este proyecto no debe introducir:
-
-- [Exclusión.]
-- [Exclusión.]
-
-Cualquier requisito que rompa estos límites debe identificarse antes de implementarlo.
-
----
-
-## 6. Guías de desarrollo
-
-Antes de implementar un cambio:
-
-1. Revisar la estructura y la documentación existentes.
-2. Conservar los patrones visuales y funcionales ya establecidos.
-3. Identificar el servicio o módulo afectado.
-4. Evitar modificar funcionalidad no relacionada.
-5. Respetar la arquitectura y los límites de alcance de este documento.
-6. Seguir la especificación correspondiente para los requisitos del cambio.
-
-El comportamiento detallado y los requisitos de implementación se mantienen en las especificaciones del proyecto.

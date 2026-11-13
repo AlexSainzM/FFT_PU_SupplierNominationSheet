@@ -1,77 +1,45 @@
-# Spec NNN — [Título del cambio]
+# Spec 001 · Formulario de nominación de proveedores
 
-> Plantilla reutilizable. Copiar a `docs/specs/NNN-descripcion-del-cambio.md` y sustituir los marcadores antes de usarla. Próximo ID previsto: 005. Los enlaces relativos siguientes están preparados para esa ubicación. Esta plantilla no autoriza ni define una implementación.
+**Estado de la especificación** · Borrador del 13 de noviembre de 2026. Implementación pendiente.
 
-**Estado:** Borrador  
-**Fecha de creación:** [AAAA-MM-DD]  
-**Última actualización:** [AAAA-MM-DD]  
-**Responsable:** [Por definir]  
-**Decisión para iniciar:** [Pendiente; responsable y fecha]  
-**Specs relacionadas:** [IDs y enlaces, o no aplica]
+## Objetivo y ubicación
 
-## 1. Problema y resultado esperado
+Una persona que evalúa una oferta debe poder completar una evaluación por proveedor y enviarla a Formspree desde el navegador. La implementación se realizará en `forms/supplierNominationSheet/`, sobre la copia de la plantilla que ya contiene esa carpeta. Se utilizarán sus componentes Bootstrap, validación y estilos de FFT México, y su página de agradecimiento. [Plantilla del formulario](../../forms/supplierNominationSheet/index.html) · [Página Thanks](../../forms/supplierNominationSheet/thanks/index.html)
 
-[Quién necesita el cambio, qué sucede hoy y qué debería suceder. Incluir un ejemplo observable del antes y después.]
+El alcance termina con la confirmación del envío. La consulta de registros mediante la API de solo lectura, los visores y el cálculo de puntajes corresponden a especificaciones futuras. [Contexto del proyecto](../PROJECT_OVERVIEW.md)
 
-## 2. Contexto y fuentes
+## Recorrido de quien evalúa
 
-- [Contexto general](../PROJECT_OVERVIEW.md).
-- [Modelo común](../INSPECTION_MODEL.md).
-- [Matriz de lógica](../FORM_LOGIC_MATRIX.md).
-- [Seguimiento y decisiones pendientes](../TRACKING.md).
-- [Agregar rutas reales de implementación y documentos fuente pertinentes; comprobarlas antes de definir requisitos.]
+1. **Abrir el formulario.** La página identifica la evaluación técnica y comercial de proveedores y explica qué información se necesita. Los criterios aparecen sin respuesta preseleccionada.
+2. **Identificar el proyecto y la oferta.** Capturar los ocho datos del formato en el orden de lectura de la primera página.
 
-## 3. Alcance
+   | Proyecto | Oferta y evaluación |
+   | --- | --- |
+   | Proyecto | ASTRAS Evento No. |
+   | Proveedor Evaluado | Fecha Evaluación |
+   | Comprador Responsable | Usuario Técnico Responsable |
+   | Presupuesto Estimado | Oferta Recibida |
 
-[Enumerar las capacidades y los módulos incluidos. Identificar carpetas que podrán modificarse en la futura implementación.]
+3. **Contestar los criterios.** Recorrer las tres secciones en el orden siguiente. Cada fila del PDF corresponde a una pregunta con su número dentro de la sección, su texto completo, una selección excluyente «Sí» o «No» y un campo independiente de «Comentarios de justificación». Una respuesta negativa es válida y se registra literalmente, incluso en «Requiere anticipo». [Preguntas y orden del formato original](../utilities/Nomination_Sheet_FFT.pdf)
 
-## 4. Fuera de alcance y restricciones
+   | Sección | Preguntas | Referencia |
+   | --- | ---: | --- |
+   | Validación Comercial | 1 a 16 | Página 1 |
+   | Validación Técnica | 1 a 9 | Página 2 |
+   | Validación Legal y Cumplimiento | 1 a 7 | Página 2 |
 
-[Definir exclusiones, carpetas protegidas y restricciones aplicables. Confirmar arquitectura, compatibilidad y límites de integración a partir del contexto vigente.]
+4. **Revisar y corregir.** Antes de enviar, el usuario puede volver a cualquier sección y editar sus datos. Para este borrador se consideran obligatorios los ocho datos generales y las 32 selecciones, con comentarios opcionales en cada criterio. Si falta un dato obligatorio o su formato es inválido, el formulario señala el campo, facilita su corrección y conserva lo ya capturado.
+5. **Enviar.** Con los datos válidos, el botón de envío realiza un POST HTML al endpoint de Formspree configurado en el formulario. Cada campo debe tener un nombre estable según la convención de la plantilla. Las respuestas y los comentarios deben distinguirse por sección y criterio, aun cuando la numeración visible vuelva a empezar en 1. [Convención de campos y envío](../../forms/supplierNominationSheet/README.md)
+6. **Confirmar la recepción.** Configurar el destino de éxito de Formspree con la URL pública de `forms/supplierNominationSheet/thanks/`, prevista en el campo `_next` de la plantilla. Tras un envío aceptado, la página Thanks confirma la recepción de la evaluación. Si la red o el servicio informa un fallo, el usuario debe poder volver al formulario y reintentar el envío sin recibir una confirmación de éxito.
 
-## 5. Comportamiento requerido
+## Criterios de aceptación para la implementación
 
-| ID | Situación o entrada | Resultado esperado |
-| --- | --- | --- |
-| RF-01 | [Disparador y precondiciones] | [Comportamiento observable] |
+| Caso de prueba | Resultado verificable |
+| --- | --- |
+| Completar una evaluación en móvil y con teclado en escritorio | Se pueden leer las instrucciones, identificar los campos, contestar las 32 preguntas y recorrer las tres secciones en el orden del PDF. |
+| Omitir un dato obligatorio o una respuesta e intentar enviar | La validación identifica la omisión antes del POST y conserva las demás respuestas. Un comentario vacío permite continuar. |
+| Cambiar una selección y escribir comentarios distintos en el primer criterio de cada sección | El POST contiene los ocho datos, las 32 respuestas finales y cada comentario asociado a su pregunta. Los tres criterios número 1 se distinguen en el envío. |
+| Aceptar un envío válido | El destino de éxito abre la página Thanks de esta carpeta y el usuario ve la confirmación. |
+| Simular un rechazo de Formspree o un fallo de red | El flujo comunica el fallo, permite regresar y reintentar, y muestra Thanks únicamente tras una recepción confirmada. |
 
-[Describir navegación, validación, permisos si aplican, carga, vacío, error y recuperación. Marcar lo que no aplique.]
-
-## 6. Datos e integraciones
-
-[Campos reales afectados, contratos, origen de datos, compatibilidad con registros existentes y configuración requerida. No inventar nombres ni copiar claves en la spec; referenciar su ubicación de configuración. Indicar si hay operaciones externas y qué autorización necesitan.]
-
-## 7. Criterios de aceptación
-
-| ID | Requisito | Comprobación verificable | Evidencia esperada |
-| --- | --- | --- | --- |
-| CA-01 | RF-01 | Dado [contexto], cuando [acción], entonces [resultado]. | [Prueba o revisión] |
-
-## 8. Plan de validación
-
-[Comandos existentes pertinentes, revisión manual necesaria y datos de prueba. Distinguir simulaciones de consultas o envíos reales. Definir qué efectos externos están autorizados. No declarar resultados antes de ejecutar las comprobaciones.]
-
-## 9. Documentación y rutas afectadas
-
-[Enumerar documentos que deberán actualizarse y referencias que deberán corregirse si cambian rutas. Incluir el registro de specs, seguimiento y, cuando aplique, modelo y matriz.]
-
-## 10. Decisiones abiertas y riesgos
-
-| Tema | Decisión necesaria | Responsable | ¿Bloquea implementación? |
-| --- | --- | --- | --- |
-| [Tema] | [Pregunta concreta] | [Por definir] | [Sí / No y motivo] |
-
-## 11. Cierre de la iteración
-
-**Estado final:** [Pendiente]  
-**Informe de validación:** [Añadir enlace relativo a `../reports/AAAA-MM-DD-validacion-spec-NNN.md` cuando exista]  
-**Criterios satisfechos:** [IDs y evidencia]  
-**Pendientes y límites:** [Enumerar o indicar ninguno con fundamento]
-
-## 12. Historial de decisiones
-
-| Fecha | Decisión o cambio de estado | Motivo y responsable |
-| --- | --- | --- |
-| [AAAA-MM-DD] | [Decisión] | [Motivo y responsable] |
-
-[Registro de specs](../specs/README.md) · [Índice documental](../README.md)
+Para validar, usar una evaluación ficticia y simular éxito y fallo antes de comprobar el recorrido completo con el endpoint destinado a pruebas. Antes de publicar, confirmar el endpoint de nominaciones y la URL pública de Thanks, que figuran como marcadores en la plantilla actual.
