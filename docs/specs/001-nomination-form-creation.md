@@ -1,6 +1,6 @@
 # Spec 001 · Formulario de nominación de proveedores
 
-**Estado de la especificación** · Borrador del 13 de noviembre de 2026. Implementación pendiente.
+**Estado de la especificación** · Implementada el 13 de noviembre de 2026. Flujo verificado en navegador con respuestas simuladas de Formspree.
 
 ## Objetivo y ubicación
 
@@ -28,7 +28,7 @@ El alcance termina con la confirmación del envío. La consulta de registros med
    | Validación Técnica | 1 a 9 | Página 2 |
    | Validación Legal y Cumplimiento | 1 a 7 | Página 2 |
 
-4. **Revisar y corregir.** Antes de enviar, el usuario puede volver a cualquier sección y editar sus datos. Para este borrador se consideran obligatorios los ocho datos generales y las 32 selecciones, con comentarios opcionales en cada criterio. Si falta un dato obligatorio o su formato es inválido, el formulario señala el campo, facilita su corrección y conserva lo ya capturado.
+4. **Revisar y corregir.** Antes de enviar, el usuario puede volver a cualquier sección y editar sus datos. Son obligatorios los ocho datos generales y las 32 selecciones, con comentarios opcionales en cada criterio. Si falta un dato obligatorio o su formato es inválido, el formulario señala el campo, facilita su corrección y conserva lo ya capturado.
 5. **Enviar.** Con los datos válidos, el botón de envío realiza un POST HTML al endpoint de Formspree configurado en el formulario. Cada campo debe tener un nombre estable según la convención de la plantilla. Las respuestas y los comentarios deben distinguirse por sección y criterio, aun cuando la numeración visible vuelva a empezar en 1. [Convención de campos y envío](../../forms/supplierNominationSheet/README.md)
 6. **Confirmar la recepción.** Configurar el destino de éxito de Formspree con la URL pública de `forms/supplierNominationSheet/thanks/`, prevista en el campo `_next` de la plantilla. Tras un envío aceptado, la página Thanks confirma la recepción de la evaluación. Si la red o el servicio informa un fallo, el usuario debe poder volver al formulario y reintentar el envío sin recibir una confirmación de éxito.
 
@@ -42,4 +42,6 @@ El alcance termina con la confirmación del envío. La consulta de registros med
 | Aceptar un envío válido | El destino de éxito abre la página Thanks de esta carpeta y el usuario ve la confirmación. |
 | Simular un rechazo de Formspree o un fallo de red | El flujo comunica el fallo, permite regresar y reintentar, y muestra Thanks únicamente tras una recepción confirmada. |
 
-Para validar, usar una evaluación ficticia y simular éxito y fallo antes de comprobar el recorrido completo con el endpoint destinado a pruebas. Antes de publicar, confirmar el endpoint de nominaciones y la URL pública de Thanks, que figuran como marcadores en la plantilla actual.
+La implementación envía los campos por POST a `https://formspree.io/f/xgakozbj`. El navegador solicita una respuesta JSON para poder comunicar errores sin perder las respuestas. La URL de Thanks se resuelve desde la ubicación del formulario, se incluye en `_next` y se abre tras la confirmación del servicio.
+
+La prueba en navegador verificó la validación obligatoria, el contenido del POST, un fallo de red, un rechazo, el reintento y la navegación a Thanks con un envío aceptado simulado. La recepción en la cuenta de Formspree queda pendiente de un envío real.

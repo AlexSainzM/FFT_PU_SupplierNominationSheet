@@ -12,15 +12,13 @@
     TEMPLATE CONFIGURATION — values that MUST be customized for each implementation without changing the surrounding structure.
     PAGE-SPECIFIC CONTENT — optional extra blocks belonging to the individual confirmation page.
 
-    Replace every {{PLACEHOLDER_NAME}} marker before production.
-    A finished production page must contain ZERO unresolved {{...}} placeholders.
   -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- TEMPLATE CONFIGURATION -->
-  <title>{{THANKS_TITLE}} | FFT México</title>
-  <meta name="description" content="{{THANKS_META_DESCRIPTION}}">
+  <title>Evaluación recibida | FFT México</title>
+  <meta name="description" content="Confirmación del envío de la evaluación del proveedor.">
 
   <!-- =====================================================
         TEMPLATE CORE — DO NOT MODIFY FOR INDIVIDUAL PAGES
@@ -43,7 +41,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top px-3 px-md-5 fft-navbar">
       <div class="container-fluid">
         <!-- These relative paths depend on the expected forms/<form>/thanks/ deployment structure. -->
-        <a class="navbar-brand" href="{{FORM_HOME_URL}}" aria-label="FFT México">
+        <a class="navbar-brand" href="../" aria-label="FFT México">
           <img src="../../../assets/img/common/fft_logonormal_headers.webp"
                alt="FFT México"
                height="30"
@@ -51,8 +49,8 @@
         </a>
         <div class="ms-auto">
           <span class="navbar-text text-white fw-medium">
-            <i class="bi {{NAV_ICON}} me-1" aria-hidden="true"></i>
-            {{NAV_LABEL}}
+            <i class="bi bi-clipboard-check me-1" aria-hidden="true"></i>
+            Evaluación de proveedor
           </span>
         </div>
       </div>
@@ -65,17 +63,14 @@
         <div class="col-lg-8 col-xl-7">
           <article class="form-section confirmation-card text-center">
             <div class="confirmation-icon" aria-hidden="true">
-              <i class="bi {{THANKS_ICON}}"></i>
+              <i class="bi bi-check-lg"></i>
             </div>
             <!-- TEMPLATE CONFIGURATION -->
-            <p class="fft-eyebrow mb-2">{{THANKS_EYEBROW}}</p>
-            <h1 id="confirmationTitle" class="display-6 fw-bold mb-3">{{THANKS_HEADING}}</h1>
-            <p class="lead text-muted mb-4">{{THANKS_INTRODUCTION}}</p>
+            <p class="fft-eyebrow mb-2">COMPRAS</p>
+            <h1 id="confirmationTitle" class="display-6 fw-bold mb-3">Evaluación recibida</h1>
+            <p class="lead text-muted mb-4">Gracias por registrar la evaluación del proveedor.</p>
 
-            <div class="confirmation-detail text-start" role="note">
-              <i class="bi {{THANKS_DETAIL_ICON}}" aria-hidden="true"></i>
-              <p class="mb-0">{{THANKS_DETAIL}}</p>
-            </div>
+
 
             <!-- =====================================================
                  PAGE-SPECIFIC CONTENT — EDIT FOR EACH IMPLEMENTATION
@@ -87,8 +82,8 @@
 
             <!-- TEMPLATE CORE -->
             <div class="form-actions justify-content-center">
-              <a class="btn btn-primary btn-lg" href="{{THANKS_ACTION_URL}}">
-                <i class="bi {{THANKS_ACTION_ICON}} me-2" aria-hidden="true"></i>{{THANKS_ACTION_LABEL}}
+              <a class="btn btn-primary btn-lg" href="../">
+                <i class="bi bi-plus-lg me-2" aria-hidden="true"></i>Evaluar otro proveedor
               </a>
             </div>
           </article>
@@ -102,7 +97,7 @@
     <div class="container">
       <p class="mb-1">&copy; <span id="currentYear"></span> FFT México. Todos los derechos reservados.</p>
       <!-- TEMPLATE CONFIGURATION -->
-      <p class="mb-0 small">{{FOOTER_DESCRIPTION}}</p>
+      <p class="mb-0 small">Compras · Nominación de proveedores</p>
     </div>
   </footer>
 

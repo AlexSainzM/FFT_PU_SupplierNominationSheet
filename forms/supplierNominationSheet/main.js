@@ -13,7 +13,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initializeTooltips();
-  initializeFormValidation();
+  initializeNominationSubmission();
   initializeDynamicYear();
 });
 
@@ -32,46 +32,6 @@ function initializeTooltips() {
 }
 
 /**
- * Applies reusable Bootstrap-compatible HTML5 validation to the main form.
- */
-function initializeFormValidation() {
-  const form = document.getElementById('mainForm');
-
-  if (!form) {
-    return;
-  }
-
-  form.addEventListener('submit', (event) => {
-    const isValid = form.checkValidity();
-
-    if (!isValid) {
-      event.preventDefault();
-      event.stopPropagation();
-      focusFirstInvalidField(form);
-    }
-
-    form.classList.add('was-validated');
-  });
-}
-
-/**
- * Moves keyboard focus to the first invalid control when possible.
- */
-function focusFirstInvalidField(form) {
-  const firstInvalidField = form.querySelector(':invalid');
-
-  if (firstInvalidField instanceof HTMLElement) {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    firstInvalidField.focus({ preventScroll: true });
-    firstInvalidField.scrollIntoView({
-      behavior: prefersReducedMotion ? 'auto' : 'smooth',
-      block: 'center'
-    });
-  }
-}
-
-/**
  * Keeps the copyright year current without manual maintenance.
  */
 function initializeDynamicYear() {
@@ -84,18 +44,39 @@ function initializeDynamicYear() {
 
 // ======================================================
 // FORM-SPECIFIC LOGIC  (FORM-SPECIFIC CONTENT)
-// Add conditional fields, calculations, or business
-// rules for each form below this section.
-// Do not implement a generic conditional-form engine.
-//
-// Conditional-field convention:
-// - Conditional fields required when active must use data-required="true".
-// - When hidden/inactive:
-//     add d-none to the conditional container,
-//     disable its controls,
-//     set their required property to false.
-// - When visible/active:
-//     remove d-none,
-//     enable its controls,
-//     restore required only when data-required="true".
-// ======================================================
+
+function initializeNominationSubmission() {
+  const form = document.getElementById('mainForm');
+  const submitButton = form.querySelector('[type="submit"]');
+  const status = document.getElementById('submissionStatus');
+  const thanksUrl = new URL(form.elements.namedItem('_next').value, document.baseURI);
+  form.elements.namedItem('_next').value = thanksUrl.href;
+
+  // Native constraint validation runs before the submit event.
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (submitButton.disabled) return;
+
+    submitButton.disabled = true;
+    status.textContent = 'Enviando evaluación…';
+    try {
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+      if (!response.ok) throw new Error('Submission rejected');
+      const result = await response.json();
+      if (result.errors || result.ok === false) throw new Error('Submission rejected');
+      window.location.assign(thanksUrl.href);
+    } catch {
+      status.textContent = 'No se pudo confirmar el envío. Tus respuestas siguen aquí. Verifica la conexión y vuelve a enviar la evaluación.';
+      submitButton.disabled = false;
+    }
+  });
+
+  window.addEventListener('pageshow', () => {
+    submitButton.disabled = false;
+    status.textContent = '';
+  });
+}

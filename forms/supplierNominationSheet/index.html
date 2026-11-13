@@ -10,15 +10,13 @@
     TEMPLATE CONFIGURATION — values that MUST be customized for each implementation without changing the surrounding structure.
     FORM-SPECIFIC CONTENT — questions and controls belonging to the individual form.
 
-    Replace every {{PLACEHOLDER_NAME}} marker before production.
-    A finished production form must contain ZERO unresolved {{...}} placeholders.
   -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- TEMPLATE CONFIGURATION -->
-  <title>{{FORM_TITLE}} | FFT México</title>
-  <meta name="description" content="{{FORM_META_DESCRIPTION}}">
+  <title>Nominación de proveedores | FFT México</title>
+  <meta name="description" content="Evaluación técnica, comercial y legal de proveedores para FFT México.">
 
   <!-- =====================================================
         TEMPLATE CORE — DO NOT MODIFY FOR INDIVIDUAL FORMS
@@ -40,7 +38,7 @@
       <div class="container-fluid">
         <!-- These relative paths depend on the expected FFT internal-services deployment structure. -->
         <a class="navbar-brand" href="#" aria-label="FFT México">
-          <img src="../../img/common/fft_logonormal_headers.webp"
+          <img src="../../assets/img/common/fft_logonormal_headers.webp"
                alt="FFT México"
                height="30"
                class="d-inline-block align-text-top">
@@ -58,9 +56,9 @@
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
               <!-- TEMPLATE CONFIGURATION -->
-              <a class="nav-link" href="{{NAV_HREF}}">
-                <i class="bi {{NAV_ICON}} me-1" aria-hidden="true"></i>
-                {{NAV_LABEL}}
+              <a class="nav-link" href="#mainForm">
+                <i class="bi bi-clipboard-check me-1" aria-hidden="true"></i>
+                Evaluación de proveedor
               </a>
             </li>
           </ul>
@@ -72,10 +70,10 @@
       <div class="row">
         <div class="col-lg-10 mx-auto">
           <!-- TEMPLATE CONFIGURATION -->
-          <p class="fft-eyebrow mb-2">{{FORM_EYEBROW}}</p>
-          <h1 class="display-5 fw-bold mb-3">{{FORM_TITLE}}</h1>
-          <p class="lead mb-2">{{FORM_INTRODUCTION}}</p>
-          <p class="text-muted mb-4">{{FORM_INSTRUCTIONS}}</p>
+          <p class="fft-eyebrow mb-2">FFT MÉXICO · COMPRAS</p>
+          <h1 class="display-5 fw-bold mb-3">Nominación de proveedores</h1>
+          <p class="lead mb-2">Evalúa la oferta de un proveedor para un proyecto y un evento de ASTRAS.</p>
+          <p class="text-muted mb-4">Ten a la mano el presupuesto, la oferta y la documentación del proveedor. Responde cada criterio y agrega una justificación cuando corresponda.</p>
 
           <!-- TEMPLATE CORE -->
           <div class="alert alert-warning border-0 shadow-sm fft-required-notice" role="note">
@@ -91,47 +89,548 @@
     <section class="container py-5" aria-labelledby="formSectionTitle">
       <div class="row mb-5">
         <div class="col-lg-10 mx-auto">
-          <!-- TEMPLATE CORE form shell. Customize only action={{FORMSPREE_ENDPOINT}}. -->
+          <!-- TEMPLATE CORE form shell. Customize only action=https://formspree.io/f/xgakozbj. -->
           <form id="mainForm"
                 class="fft-form needs-validation"
-                action="{{FORMSPREE_ENDPOINT}}"
-                method="POST"
-                novalidate>
-            <input type="hidden" name="_next" value="{{FORM_THANKS_URL}}">
+                action="https://formspree.io/f/xgakozbj"
+                method="POST">
+            <input type="hidden" name="_next" value="thanks/">
             <div class="form-section">
               <!-- TEMPLATE CONFIGURATION -->
-              <h2 id="formSectionTitle" class="form-section-title">{{SECTION_TITLE}}</h2>
-              <p class="form-section-description">{{SECTION_DESCRIPTION}}</p>
+              <h2 id="formSectionTitle" class="form-section-title">Información general</h2>
+              <p class="form-section-description">Identifica el proyecto, el proveedor y las personas responsables de la evaluación.</p>
 
-              <!-- =====================================================
-                   FORM-SPECIFIC CONTENT — EDIT FOR EACH IMPLEMENTATION
-
-                   Insert all form questions in this single area.
-
-                   Field convention: pNN_short_description
-                   Examples: p01_nombre, p02_departamento
-                   Use lowercase snake_case without accents and a
-                   two-digit question number. Keep id and name equal
-                   whenever possible.
-
-                   Conditional fields:
-                   - Hide inactive containers with Bootstrap's d-none.
-                   - Disable inactive controls so they cannot block native validation.
-                   - Fields required when active must use data-required="true".
-                   - Apply required only while a conditional section is active.
-
-                   Grouped controls:
-                  - Radio options belonging to one question must share the same name.
-                  - Use unique IDs for each option.
-                  - Apply required to the first radio of a required group.
-                  - Validation feedback for a radio/checkbox group belongs to the group, not to an individual option.
-                  - Use fieldset + legend for grouped controls.
-              ====================================================== -->
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="p01_proyecto" class="form-label">Proyecto <span class="required-indicator" aria-hidden="true">*</span></label>
+                  <input class="form-control" type="text" id="p01_proyecto" name="p01_proyecto" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="p02_astras_evento" class="form-label">ASTRAS Evento No. <span class="required-indicator" aria-hidden="true">*</span></label>
+                  <input class="form-control" type="text" id="p02_astras_evento" name="p02_astras_evento" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="p03_proveedor" class="form-label">Proveedor evaluado <span class="required-indicator" aria-hidden="true">*</span></label>
+                  <input class="form-control" type="text" id="p03_proveedor" name="p03_proveedor" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="p04_fecha" class="form-label">Fecha de evaluación <span class="required-indicator" aria-hidden="true">*</span></label>
+                  <input class="form-control" type="date" id="p04_fecha" name="p04_fecha" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="p05_comprador" class="form-label">Comprador responsable <span class="required-indicator" aria-hidden="true">*</span></label>
+                  <input class="form-control" type="text" id="p05_comprador" name="p05_comprador" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="p06_usuario_tecnico" class="form-label">Usuario técnico responsable <span class="required-indicator" aria-hidden="true">*</span></label>
+                  <input class="form-control" type="text" id="p06_usuario_tecnico" name="p06_usuario_tecnico" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="p07_presupuesto" class="form-label">Presupuesto estimado <span class="required-indicator" aria-hidden="true">*</span></label>
+                  <input class="form-control" type="text" id="p07_presupuesto" name="p07_presupuesto" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="p08_oferta" class="form-label">Oferta recibida <span class="required-indicator" aria-hidden="true">*</span></label>
+                  <input class="form-control" type="text" id="p08_oferta" name="p08_oferta" required>
+                </div>
+              </div>
+            </div>
+            <section class="form-section mt-4">
+              <h2 class="form-section-title">Validación Comercial</h2>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">1. Oferta recibida dentro de la fecha límite <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p09_comercial_01_si" name="p09_comercial_01" value="Sí" required>
+                  <label class="form-check-label" for="p09_comercial_01_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p09_comercial_01_no" name="p09_comercial_01" value="No" required>
+                  <label class="form-check-label" for="p09_comercial_01_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p09_comercial_01_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p09_comercial_01_comentario" name="p09_comercial_01_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">2. Oferta firmada por representante autorizado <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p10_comercial_02_si" name="p10_comercial_02" value="Sí" required>
+                  <label class="form-check-label" for="p10_comercial_02_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p10_comercial_02_no" name="p10_comercial_02" value="No" required>
+                  <label class="form-check-label" for="p10_comercial_02_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p10_comercial_02_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p10_comercial_02_comentario" name="p10_comercial_02_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">3. Vigencia de la oferta indicada <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p11_comercial_03_si" name="p11_comercial_03" value="Sí" required>
+                  <label class="form-check-label" for="p11_comercial_03_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p11_comercial_03_no" name="p11_comercial_03" value="No" required>
+                  <label class="form-check-label" for="p11_comercial_03_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p11_comercial_03_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p11_comercial_03_comentario" name="p11_comercial_03_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">4. Precio total correctamente desglosado <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p12_comercial_04_si" name="p12_comercial_04" value="Sí" required>
+                  <label class="form-check-label" for="p12_comercial_04_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p12_comercial_04_no" name="p12_comercial_04" value="No" required>
+                  <label class="form-check-label" for="p12_comercial_04_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p12_comercial_04_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p12_comercial_04_comentario" name="p12_comercial_04_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">5. Moneda especificada <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p13_comercial_05_si" name="p13_comercial_05" value="Sí" required>
+                  <label class="form-check-label" for="p13_comercial_05_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p13_comercial_05_no" name="p13_comercial_05" value="No" required>
+                  <label class="form-check-label" for="p13_comercial_05_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p13_comercial_05_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p13_comercial_05_comentario" name="p13_comercial_05_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">6. Costos de viáticos y transporte incluidos <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p14_comercial_06_si" name="p14_comercial_06" value="Sí" required>
+                  <label class="form-check-label" for="p14_comercial_06_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p14_comercial_06_no" name="p14_comercial_06" value="No" required>
+                  <label class="form-check-label" for="p14_comercial_06_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p14_comercial_06_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p14_comercial_06_comentario" name="p14_comercial_06_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">7. Condiciones y términos mencionados en la oferta <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p15_comercial_07_si" name="p15_comercial_07" value="Sí" required>
+                  <label class="form-check-label" for="p15_comercial_07_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p15_comercial_07_no" name="p15_comercial_07" value="No" required>
+                  <label class="form-check-label" for="p15_comercial_07_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p15_comercial_07_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p15_comercial_07_comentario" name="p15_comercial_07_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">8. Costos identificados correctamente en oferta <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p16_comercial_08_si" name="p16_comercial_08" value="Sí" required>
+                  <label class="form-check-label" for="p16_comercial_08_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p16_comercial_08_no" name="p16_comercial_08" value="No" required>
+                  <label class="form-check-label" for="p16_comercial_08_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p16_comercial_08_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p16_comercial_08_comentario" name="p16_comercial_08_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">9. Ahorro respecto al presupuesto estimado <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p17_comercial_09_si" name="p17_comercial_09" value="Sí" required>
+                  <label class="form-check-label" for="p17_comercial_09_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p17_comercial_09_no" name="p17_comercial_09" value="No" required>
+                  <label class="form-check-label" for="p17_comercial_09_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p17_comercial_09_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p17_comercial_09_comentario" name="p17_comercial_09_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">10. Cláusulas alineadas al requerimiento <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p18_comercial_10_si" name="p18_comercial_10" value="Sí" required>
+                  <label class="form-check-label" for="p18_comercial_10_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p18_comercial_10_no" name="p18_comercial_10" value="No" required>
+                  <label class="form-check-label" for="p18_comercial_10_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p18_comercial_10_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p18_comercial_10_comentario" name="p18_comercial_10_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">11. Disponibilidad de recursos confirmada <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p19_comercial_11_si" name="p19_comercial_11" value="Sí" required>
+                  <label class="form-check-label" for="p19_comercial_11_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p19_comercial_11_no" name="p19_comercial_11" value="No" required>
+                  <label class="form-check-label" for="p19_comercial_11_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p19_comercial_11_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p19_comercial_11_comentario" name="p19_comercial_11_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">12. Condiciones alineadas a FFT <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p20_comercial_12_si" name="p20_comercial_12" value="Sí" required>
+                  <label class="form-check-label" for="p20_comercial_12_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p20_comercial_12_no" name="p20_comercial_12" value="No" required>
+                  <label class="form-check-label" for="p20_comercial_12_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p20_comercial_12_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p20_comercial_12_comentario" name="p20_comercial_12_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">13. Requiere anticipo <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p21_comercial_13_si" name="p21_comercial_13" value="Sí" required>
+                  <label class="form-check-label" for="p21_comercial_13_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p21_comercial_13_no" name="p21_comercial_13" value="No" required>
+                  <label class="form-check-label" for="p21_comercial_13_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p21_comercial_13_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p21_comercial_13_comentario" name="p21_comercial_13_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">14. Retenciones consideradas por garantía <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p22_comercial_14_si" name="p22_comercial_14" value="Sí" required>
+                  <label class="form-check-label" for="p22_comercial_14_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p22_comercial_14_no" name="p22_comercial_14" value="No" required>
+                  <label class="form-check-label" for="p22_comercial_14_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p22_comercial_14_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p22_comercial_14_comentario" name="p22_comercial_14_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">15. Sin incidencias relevantes previas <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p23_comercial_15_si" name="p23_comercial_15" value="Sí" required>
+                  <label class="form-check-label" for="p23_comercial_15_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p23_comercial_15_no" name="p23_comercial_15" value="No" required>
+                  <label class="form-check-label" for="p23_comercial_15_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p23_comercial_15_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p23_comercial_15_comentario" name="p23_comercial_15_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">16. Capacidad financiera adecuada <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p24_comercial_16_si" name="p24_comercial_16" value="Sí" required>
+                  <label class="form-check-label" for="p24_comercial_16_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p24_comercial_16_no" name="p24_comercial_16" value="No" required>
+                  <label class="form-check-label" for="p24_comercial_16_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p24_comercial_16_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p24_comercial_16_comentario" name="p24_comercial_16_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+            </section>
+            <section class="form-section mt-4">
+              <h2 class="form-section-title">Validación Técnica</h2>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">1. Cumple alcance RFQ <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p25_tecnica_01_si" name="p25_tecnica_01" value="Sí" required>
+                  <label class="form-check-label" for="p25_tecnica_01_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p25_tecnica_01_no" name="p25_tecnica_01" value="No" required>
+                  <label class="form-check-label" for="p25_tecnica_01_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p25_tecnica_01_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p25_tecnica_01_comentario" name="p25_tecnica_01_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">2. Cumple suficiente manpower plan <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p26_tecnica_02_si" name="p26_tecnica_02" value="Sí" required>
+                  <label class="form-check-label" for="p26_tecnica_02_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p26_tecnica_02_no" name="p26_tecnica_02" value="No" required>
+                  <label class="form-check-label" for="p26_tecnica_02_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p26_tecnica_02_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p26_tecnica_02_comentario" name="p26_tecnica_02_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">3. Cuenta con Certificaciones necesarias <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p27_tecnica_03_si" name="p27_tecnica_03" value="Sí" required>
+                  <label class="form-check-label" for="p27_tecnica_03_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p27_tecnica_03_no" name="p27_tecnica_03" value="No" required>
+                  <label class="form-check-label" for="p27_tecnica_03_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p27_tecnica_03_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p27_tecnica_03_comentario" name="p27_tecnica_03_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">4. Cuenta con Credenciales vigentes <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p28_tecnica_04_si" name="p28_tecnica_04" value="Sí" required>
+                  <label class="form-check-label" for="p28_tecnica_04_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p28_tecnica_04_no" name="p28_tecnica_04" value="No" required>
+                  <label class="form-check-label" for="p28_tecnica_04_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p28_tecnica_04_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p28_tecnica_04_comentario" name="p28_tecnica_04_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">5. Contempla posibles desviaciones técnicas sin adicional <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p29_tecnica_05_si" name="p29_tecnica_05" value="Sí" required>
+                  <label class="form-check-label" for="p29_tecnica_05_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p29_tecnica_05_no" name="p29_tecnica_05" value="No" required>
+                  <label class="form-check-label" for="p29_tecnica_05_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p29_tecnica_05_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p29_tecnica_05_comentario" name="p29_tecnica_05_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">6. Conoce estándares de planta <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p30_tecnica_06_si" name="p30_tecnica_06" value="Sí" required>
+                  <label class="form-check-label" for="p30_tecnica_06_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p30_tecnica_06_no" name="p30_tecnica_06" value="No" required>
+                  <label class="form-check-label" for="p30_tecnica_06_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p30_tecnica_06_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p30_tecnica_06_comentario" name="p30_tecnica_06_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">7. Cumple la oferta todo el timing <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p31_tecnica_07_si" name="p31_tecnica_07" value="Sí" required>
+                  <label class="form-check-label" for="p31_tecnica_07_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p31_tecnica_07_no" name="p31_tecnica_07" value="No" required>
+                  <label class="form-check-label" for="p31_tecnica_07_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p31_tecnica_07_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p31_tecnica_07_comentario" name="p31_tecnica_07_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">8. Cuenta con experiencia en proyectos similares <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p32_tecnica_08_si" name="p32_tecnica_08" value="Sí" required>
+                  <label class="form-check-label" for="p32_tecnica_08_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p32_tecnica_08_no" name="p32_tecnica_08" value="No" required>
+                  <label class="form-check-label" for="p32_tecnica_08_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p32_tecnica_08_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p32_tecnica_08_comentario" name="p32_tecnica_08_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">9. Cumple con todos los equipos requerido para las actividades <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p33_tecnica_09_si" name="p33_tecnica_09" value="Sí" required>
+                  <label class="form-check-label" for="p33_tecnica_09_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p33_tecnica_09_no" name="p33_tecnica_09" value="No" required>
+                  <label class="form-check-label" for="p33_tecnica_09_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p33_tecnica_09_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p33_tecnica_09_comentario" name="p33_tecnica_09_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+            </section>
+            <section class="form-section mt-4">
+              <h2 class="form-section-title">Validación Legal y Cumplimiento</h2>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">1. NDA vigente <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p34_legal_01_si" name="p34_legal_01" value="Sí" required>
+                  <label class="form-check-label" for="p34_legal_01_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p34_legal_01_no" name="p34_legal_01" value="No" required>
+                  <label class="form-check-label" for="p34_legal_01_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p34_legal_01_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p34_legal_01_comentario" name="p34_legal_01_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">2. Opinión positiva SAT <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p35_legal_02_si" name="p35_legal_02" value="Sí" required>
+                  <label class="form-check-label" for="p35_legal_02_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p35_legal_02_no" name="p35_legal_02" value="No" required>
+                  <label class="form-check-label" for="p35_legal_02_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p35_legal_02_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p35_legal_02_comentario" name="p35_legal_02_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">3. REPSE vigente <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p36_legal_03_si" name="p36_legal_03" value="Sí" required>
+                  <label class="form-check-label" for="p36_legal_03_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p36_legal_03_no" name="p36_legal_03" value="No" required>
+                  <label class="form-check-label" for="p36_legal_03_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p36_legal_03_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p36_legal_03_comentario" name="p36_legal_03_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">4. IMSS vigente <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p37_legal_04_si" name="p37_legal_04" value="Sí" required>
+                  <label class="form-check-label" for="p37_legal_04_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p37_legal_04_no" name="p37_legal_04" value="No" required>
+                  <label class="form-check-label" for="p37_legal_04_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p37_legal_04_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p37_legal_04_comentario" name="p37_legal_04_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">5. Cumple requisitos FFT <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p38_legal_05_si" name="p38_legal_05" value="Sí" required>
+                  <label class="form-check-label" for="p38_legal_05_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p38_legal_05_no" name="p38_legal_05" value="No" required>
+                  <label class="form-check-label" for="p38_legal_05_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p38_legal_05_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p38_legal_05_comentario" name="p38_legal_05_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">6. Contrato vigente <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p39_legal_06_si" name="p39_legal_06" value="Sí" required>
+                  <label class="form-check-label" for="p39_legal_06_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p39_legal_06_no" name="p39_legal_06" value="No" required>
+                  <label class="form-check-label" for="p39_legal_06_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p39_legal_06_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p39_legal_06_comentario" name="p39_legal_06_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="form-question border-top pt-3">
+                <legend class="float-none fs-6">7. Congruencia de actividades y servicios <span class="required-indicator" aria-hidden="true">*</span></legend>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p40_legal_07_si" name="p40_legal_07" value="Sí" required>
+                  <label class="form-check-label" for="p40_legal_07_si">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="p40_legal_07_no" name="p40_legal_07" value="No" required>
+                  <label class="form-check-label" for="p40_legal_07_no">No</label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label" for="p40_legal_07_comentario">Comentarios de justificación</label>
+                  <textarea class="form-control" id="p40_legal_07_comentario" name="p40_legal_07_comentario" rows="2"></textarea>
+                </div>
+              </fieldset>
+            </section>
+            <p id="submissionStatus" class="mt-3" role="status"></p>
+            <div>
 
               <!-- TEMPLATE CORE -->
               <div class="form-actions">
                 <button class="btn btn-primary btn-lg" type="submit">
-                  <i class="bi {{SUBMIT_ICON}} me-2" aria-hidden="true"></i>{{SUBMIT_LABEL}}
+                  <i class="bi bi-send me-2" aria-hidden="true"></i>Enviar evaluación
                 </button>
               </div>
             </div>
@@ -146,7 +645,7 @@
     <div class="container">
       <p class="mb-1">&copy; <span id="currentYear"></span> FFT México. Todos los derechos reservados.</p>
       <!-- TEMPLATE CONFIGURATION -->
-      <p class="mb-0 small">{{FOOTER_DESCRIPTION}}</p>
+      <p class="mb-0 small">Compras · Nominación de proveedores</p>
     </div>
   </footer>
 
